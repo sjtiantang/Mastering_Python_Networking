@@ -2,9 +2,8 @@
 
 import paramiko, getpass, time
 
-devices = {'iosv-1': {'ip': '172.16.1.20'}, 
-           'iosv-2': {'ip': '172.16.1.21'}}
-commands = ['show version\n', 'show run\n']
+devices = {'DEVNET': {'ip': '10.0.0.100'}}
+commands = ['show version\n', 'show ip int bri\n']
 
 username = input('Username: ')
 password = getpass.getpass('Password: ')
@@ -31,7 +30,7 @@ for device in devices.keys():
             new_connection.send(command)
             time.sleep(5)
             output = new_connection.recv(max_buffer)
-            print(output)
+            #print(output)
             f.write(output)
     
     new_connection.close()
