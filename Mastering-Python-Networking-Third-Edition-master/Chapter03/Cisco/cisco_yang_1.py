@@ -2,11 +2,12 @@
 
 from ncclient import manager
 import xml.dom.minidom
+import xmltodict
 
-host = "ios-xe-mgmt.cisco.com"
-username = "root"
-password = "C!sc0123"
-port = 10000
+host = "10.0.0.100"
+username = "admin"
+password = "admin"
+port = 830
 
 yang_file = "cisco_yang_1_interfaces.xml"
 
@@ -15,6 +16,7 @@ conn = manager.connect(host=host, port=port, username=username, password=passwor
 with open(yang_file) as f: 
     output = (conn.get_config('running', f.read()))
 
-print(xml.dom.minidom.parseString(output.xml).toprettyxml())
+output = xml.dom.minidom.parseString(output.xml).toprettyxml()
+print(xmltodict.parse(output))
 
 
